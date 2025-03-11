@@ -6,9 +6,15 @@
   <title>Chart.js with Visible Labels</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
+  <style>
+    canvas {
+      width: 600px; 
+      margin: 0 auto;
+    }
+  </style>
 </head>
 <body>
-  <canvas id="myChart" width="600" height="400"></canvas>
+  <canvas id="myChart" width="800" height="600"></canvas>
   <script>
     const config = {
       type: "line",
