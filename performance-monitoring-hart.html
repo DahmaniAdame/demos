@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chart.js with Visible Labels</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
+</head>
+<body>
+  <canvas id="myChart" width="600" height="400"></canvas>
+  <script>
+    const config = {
+      type: "line",
+      data: {
+        labels: ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7"], // Days for the x-axis
+        datasets: [
+          {
+            label: "FCP (ms)",
+            data: [3390, 3500, 3400, 3300, 3550, 3600, 3450], // Simulated FCP data (ms)
+            borderColor: "blue",
+            yAxisID: "layout"
+          },
+          {
+            label: "LCP (ms)",
+            data: [5808, 5900, 6000, 5750, 5900, 6000, 5800], // Simulated LCP data (ms)
+            borderColor: "green",
+            yAxisID: "layout"
+          },
+          {
+            label: "TBT (ms)",
+            data: [200, 367, 150, 179, 223, 268, 520], // Simulated TBT data (ms)
+            borderColor: "orange",
+            yAxisID: "response"
+          },
+          {
+            label: "CLS",
+            data: [0.2, 0.03, 0.15, 0.45, 0.02 , 0.18, 0.09], // Scaled CLS
+            borderColor: "red",
+            yAxisID: "cls"
+          },
+          {
+            label: "TTFB (ms)",
+            data: [1717, 1750, 1700, 1800, 1650, 1690, 1740], // Simulated TTFB data (ms)
+            borderColor: "purple",
+            yAxisID: "response"
+          },
+          {
+            label: "Fully Loaded (ms)",
+            data: [9847, 11844, 9700, 10845, 13100, 12765, 14950], // Simulated Fully Loaded data (ms)
+            borderColor: "brown",
+            yAxisID: "load"
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          layout: {
+            type: "linear",
+            position: "left",
+            title: { display: true, text: "Layout time (ms)" },
+            min: 0,
+            max: 12000,
+            display: false
+          },
+          response: {
+            type: "linear",
+            position: "left",
+            title: { display: true, text: "Response time (ms)" },
+            min: 0,
+            max: 2000,
+            display: false
+          },
+          load: {
+            type: "linear",
+            position: "left",
+            title: { display: true, text: "Load time (ms)" },
+            min: 3000,
+            max: 16000,
+            display: false
+          },
+          cls: {
+            type: "linear",
+            position: "right",
+            title: { display: true, text: "CLS (unitless)" },
+            grid: { drawOnChartArea: false },
+            min: 0,
+            max: 1,
+            display: false
+          }
+        },
+        plugins: {
+          annotation: {
+            annotations: [
+              {
+                type: 'label',
+                xValue: 2, // Day 3 (index starts from 0)
+                yValue: 250, // Set a value to position the label vertically (adjust as needed)
+                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                color: 'white',
+                font: { size:7 },
+                content: ['LH 15'], // Text to display
+                labels: {
+                  rotation: 0
+                }
+              },
+              {
+                type: 'label',
+                xValue: 5, // Day 6 (index starts from 0)
+                yValue: 250, // Set a value to position the label vertically (adjust as needed)
+                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                color: 'white',
+                font: { size: 7 },
+                content: ['3.19'], // Text to display
+                labels: {
+                  rotation: 0
+                }
+              }
+            ]
+          }
+        }
+      }
+    };
+
+    const ctx = document.getElementById('myChart').getContext('2d');
+    new Chart(ctx, config);
+  </script>
+</body>
+</html>
